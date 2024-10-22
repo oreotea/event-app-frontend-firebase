@@ -9,14 +9,25 @@ import 'screens/event_detail_screen.dart';
 import 'screens/event_form_screen.dart';
 import 'providers/event_provider.dart';
 import 'models/event_model.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'config.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load();
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
+    options: FirebaseOptions(
+      apiKey: Config.apiKey!,
+      authDomain: Config.authDomain!,
+      projectId: Config.projectId!,
+      storageBucket: Config.storageBucket!,
+      messagingSenderId: Config.messagingSenderId!,
+      appId: Config.appId!,
+    ),
   );
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
